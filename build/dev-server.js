@@ -12,15 +12,22 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 
+var weixinApi = require('./server-api/weixinApi')
+var ijweixinApi = require('./server-api/ij-weixinApi')
+
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
-// automatically open browser, if not set will be false
+  // automatically open browser, if not set will be false
 var autoOpenBrowser = !!config.dev.autoOpenBrowser
-// Define HTTP proxies to your custom API backend
-// https://github.com/chimurai/http-proxy-middleware
+  // Define HTTP proxies to your custom API backend
+  // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+app.use('/oauth', weixinApi)
+app.use('/ij', ijweixinApi)
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -29,19 +36,19 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
-  log: false,
-  heartbeat: 2000
-})
-// force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
+    log: false,
+    heartbeat: 2000
+  })
+  // force page reload when html-webpack-plugin template changes
+compiler.plugin('compilation', function(compilation) {
+  compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
     hotMiddleware.publish({ action: 'reload' })
     cb()
   })
 })
 
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
+Object.keys(proxyTable).forEach(function(context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
     options = { target: options }
@@ -64,6 +71,9 @@ var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'))
 
 var uri = 'http://localhost:' + port
+var host = 'localhost'
+  // var host = '10.10.106.37'
+  // var uri = 'http://' + host + ':' + port
 
 var _resolve
 var readyPromise = new Promise(resolve => {
@@ -73,14 +83,14 @@ var readyPromise = new Promise(resolve => {
 console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
-  // when env is testing, don't need open it
+    // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
     opn(uri)
   }
   _resolve()
 })
 
-var server = app.listen(port, 'localhost')
+var server = app.listen(port, host)
 
 module.exports = {
   ready: readyPromise,
