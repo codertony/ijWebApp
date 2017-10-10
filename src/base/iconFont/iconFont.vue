@@ -14,7 +14,7 @@
         },
         color: {
           type: String,
-          default: '#000000'
+          default: ''
         },
         size: {
           type: String,
@@ -23,7 +23,11 @@
       },
         computed:{
             style(){
-              return "color:"+this.color+";font-size:"+ this.size
+                if(this.color){
+                    return "color:"+this.color+";font-size:"+ this.size
+                }else{
+                    return "font-size:"+ this.size
+                }
             }
         },
         methods:{

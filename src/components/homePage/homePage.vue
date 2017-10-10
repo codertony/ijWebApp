@@ -1,8 +1,10 @@
 <template>
   <div>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <div class="homeContent">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
     <mu-bottom-nav shift id="bottomNav">
       <mu-bottom-nav-item value="menuList" title="菜单" icon="view_list" to="/homePage/menuList"
                           activeClass="mu-bottom-item-active" exact replace/>
@@ -28,11 +30,14 @@
     height: 100%;
     overflow-y: hidden;
   }
-  
-  #app {
-    height: 100%;
+  .homeContent{
+    position: fixed;
+    top: 0;
+    bottom: 56px;
+    width: 100%;
     overflow-y: auto;
   }
+  
   
   #bottomNav {
     position: fixed;

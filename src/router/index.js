@@ -4,6 +4,7 @@ import homePage from '@/components/homePage/homePage'
 import menuList from '@/components/homePage/menuList'
 import userList from '@/components/homePage/userList'
 import workSpace from '@/components/homePage/workSpace'
+import test from '@/components/test'
 
 Vue.use(Router)
 
@@ -17,7 +18,9 @@ export default new Router({
     {
       path: '/homePage',
       name: 'homePage',
-      component: homePage,
+      components: {
+        home:homePage
+      },
       children:[
         {
           path: '/homePage/menuList',
@@ -36,6 +39,10 @@ export default new Router({
         },
       ]
     },
-    
+    {
+      path: '/test',
+      name: 'test',
+      component: test,
+    },
   ]
 })

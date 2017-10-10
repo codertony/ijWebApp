@@ -4,7 +4,7 @@
       <mu-list-item :title="userInfo.name">
         <mu-avatar :src="userInfo.avatar" slot="leftAvatar"/>
         <span slot="describe">
-        <span style="color: rgba(0, 0, 0, .87)">{{userInfo.position}} -</span> 
+        <span style="color: rgba(0, 0, 0, .87)">{{userInfo.position}} -</span>
 				{{userInfo.mobile}}
       </span>
         <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">

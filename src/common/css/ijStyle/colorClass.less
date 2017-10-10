@@ -1,0 +1,17 @@
+.color(@color){
+  .@{color}{
+    color: @@color;
+    &bg{
+      background-color: @@color;
+    }
+  }
+}
+
+
+
+body{
+  .color(blue);
+  .color(red);
+  .color(yellow);
+  .color(green);
+}
