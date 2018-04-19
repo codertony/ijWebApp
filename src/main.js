@@ -12,7 +12,7 @@ import './common/css/iconfont/iconFont.css'
 import './common/css/ijStyle/index.less'
 
 
-Vue.config.productionTip = false
+  Vue.config.productionTip = false
 
 window.axios = axios
 
